@@ -46,7 +46,7 @@ def clr():
 
 clr()
 banner()
-print(f'  {r}Version: {w}1.1 {r}| Author: {w}Shabani{rs}\n')
+print(f'  {r}Version: {w}1.1 {r}| Author: {w}@saifalisew1508{rs}\n')
 f = open('vars.txt', 'rb')
 accs = []
 while True:
@@ -60,22 +60,22 @@ i = 0
 for acc in accs:
     print(f'{lg}({w}{i}{lg}) {acc[2]}')
     i += 1
-    ind = int(input(f'\n{INPUT}{cy} Enter choice: '))
-    api_id = accs[ind][0]
-    api_hash = accs[ind][1]
-    phone = accs[ind][2]
-    group_name = input(f"Enter the name of the group without the @: {r}")
-    c = TelegramClient(f'sessions\\{phone}', api_id, api_hash)
-    c.connect()
-    if not c.is_user_authorized():
-      try:
-          c.send_code_request(phone)
-          code = input(f'{INPUT}{lg} Enter the login code for {w}{phone}{r}: ')
-          c.sign_in(phone, code)
-      except PhoneNumberBannedError:
-                                    print(f'{error}{w}{phone}{r} is banned!{rs}')
-                                    print(f'{error}{lg} Run {w}manager.py{lg} to filter them{rs}')
-                                    sys.exit()
+ind = int(input(f'\n{INPUT}{cy} Enter choice: '))
+api_id = accs[ind][0]
+api_hash = accs[ind][1]
+phone = accs[ind][2]
+group_name = input(f"Enter the username of the group without the @: {r}")
+c = TelegramClient(f'sessions\\{phone}', api_id, api_hash)
+c.connect()
+if not c.is_user_authorized():
+    try:
+        c.send_code_request(phone)
+        code = input(f'{INPUT}{lg} Enter the login code for {w}{phone}{r}: ')
+        c.sign_in(phone, code)
+    except PhoneNumberBannedError:
+        print(f'{error}{w}{phone}{r} is banned!{rs}')
+        print(f'{error}{lg} Run {w}manager.py{lg} to filter them{rs}')
+        sys.exit()
 group = c.get_entity(group_name)
 target_grp = "t.me/" + group_name
 
